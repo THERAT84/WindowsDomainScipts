@@ -26,3 +26,5 @@ Rename-Computer -NewName $hostname
 New-NetIPAddress -IPAddress $IP -DefaultGateway $Gateway -PrefixLength $SNM -InterfaceIndex (Get-NetAdapter).InterfaceIndex
 
 Set-DnsClientServerAddress -InterfaceIndex (Get-NetAdapter).InterfaceIndex -ServerAddresses $DNS1,$DNS2
+
+Restart-Computer
