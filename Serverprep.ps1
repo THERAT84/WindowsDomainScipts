@@ -23,7 +23,7 @@ $DNS2 = Read-Host "Geben Sie den zweiten DNS an."
 
 Rename-Computer -NewName $hostname
 
-New-NetIPAddress -IPAddress $IP -InterfaceAlias "Ethernet0" -DefaultGateway $Gateway -AdressFamily IPv4 -PrefixLength $SNM 
+New-NetIPAddress -IPAddress $IP -InterfaceAlias "Ethernet0" -DefaultGateway $Gateway -AddressFamily IPv4 -PrefixLength $SNM 
 
 Set-DnsClientServerAddress -InterfaceAlias "Ethernet0" -ServerAddresses $DNS1,$DNS2
 
