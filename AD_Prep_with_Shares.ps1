@@ -1,12 +1,13 @@
 <#########################################################################
 
-Skriptname:     AD_Prep_with_Shares.ps1
+Skriptname:     AD_Prep.ps1
 Funktion:       Anlegen der Basisstruktur in der AD
 Erstellt am:    25.11.2014
 Author:         N.Viragh
 Version:        1.0
 
 Aenderungen:
+23.3.2020       Fehler korrigiert
 
 #>
 ##########################################################################
@@ -29,11 +30,11 @@ $firstOU = Read-Host "Geben Sie den Namen der Ersten OU ein."
 
 # Erstellung der OU's
 
-New-ADOrganizationalUnit -Name $firstOU -Path $domainname,$TLD
+New-ADOrganizationalUnit -Name $firstOU -Path "DC=$domainname,DC=$TLD"
 
 # Struktur Global 
 
-New-ADOrganizationalUnit -Name "Global" -Path $firstOU,$domainname,$TLD
+New-ADOrganizationalUnit -Name "Global" -Path "OU=$firstOU,DC=$domainname,DC=$TLD"
 
 New-ADOrganizationalUnit -Name "Laufwerke" -Path "OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
 New-ADOrganizationalUnit -Name "Mitgliedserver" -Path "OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
@@ -57,9 +58,9 @@ $standort = Read-Host "Geben Sie den Standortnamen ein."
 
 # Struktur Standort anlegen
 
-New-ADOrganizationalUnit -Name "Benutzer" -Path "OU=$standort,OU=$firstOU,DC=domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Notebook" -Path "OU=$standort,OU=$firstOU,DC=domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Computer" -Path "OU=$standort,OU=$firstOU,DC=domainname,DC=$TLD"
+New-ADOrganizationalUnit -Name "Benutzer" -Path "OU=$standort,OU=$firstOU,DC=$domainname,DC=$TLD"
+New-ADOrganizationalUnit -Name "Notebook" -Path "OU=$standort,OU=$firstOU,DC=$domainname,DC=$TLD"
+New-ADOrganizationalUnit -Name "Computer" -Path "OU=$standort,OU=$firstOU,DC=$domainname,DC=$TLD"
 
 ##################################################################################################
 
