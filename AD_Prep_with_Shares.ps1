@@ -58,6 +58,7 @@ $standort = Read-Host "Geben Sie den Standortnamen ein."
 
 # Struktur Standort anlegen
 
+New-ADOrganizationalUnit -Name $standort -Path "OU=$firstOU,DC=$domainname,DC=$TLD"
 New-ADOrganizationalUnit -Name "Benutzer" -Path "OU=$standort,OU=$firstOU,DC=$domainname,DC=$TLD"
 New-ADOrganizationalUnit -Name "Notebook" -Path "OU=$standort,OU=$firstOU,DC=$domainname,DC=$TLD"
 New-ADOrganizationalUnit -Name "Computer" -Path "OU=$standort,OU=$firstOU,DC=$domainname,DC=$TLD"
