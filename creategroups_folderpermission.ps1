@@ -9,7 +9,7 @@ Modifications:
 ##########################################################################
 
 #Variablen deklarieren
-$grouppath = "OU=Dateiberechtigungen,OU=Gruppen,OU=Global,OU=ElektroKleiner,DC=elektrokleiner,DC=local"
+$grouppath = "OU=Dateiberechtigungen,OU=,OU=Rebstein,OU=ElektroKleiner,DC=elektrokleiner,DC=local"
 
 $groups = Get-Content "C:\scripts\files\create_groups.txt"
 foreach ($group in $groups) {
