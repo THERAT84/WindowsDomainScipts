@@ -8,13 +8,19 @@ Version:        1.0
 
 Aenderungen:
 23.3.2020       Fehler korrigiert
+14.1.2023       Umbau Script 
 
 #>
 ##########################################################################
 
-# Variabeln deklarieren
+# OU Struktur Global deklarieren
+$global = @("Laufwerke","Mitgliedserver","Gruppen","Benutzer","Gateway","Kontakte")
 
+# Stuktur Global\Groups deklarieren
+$globalgroups = @("Systemgruppen","Dateiberechtigungsgruppen","Druckerzuweisung","Softwaregruppen","Outlookberechtigungsgruppen","Verteilerliste")
 
+# Struktur Standorte deklarieren
+$sites = @("Global","Rebstein")
 
 # Abfrage Domänenname
 
@@ -32,25 +38,24 @@ $firstOU = Read-Host "Geben Sie den Namen der Ersten OU ein."
 
 New-ADOrganizationalUnit -Name $firstOU -Path "DC=$domainname,DC=$TLD"
 
-# Struktur Global 
+# Struktur Global und Standort anlegen
 
-New-ADOrganizationalUnit -Name "Global" -Path "OU=$firstOU,DC=$domainname,DC=$TLD"
+foreach ($ou in $sites)
+{
+    New-ADOrganizationalUnit -Name $ou -Path "OU=$firstOU,DC=$domainname,DC=$TLD"
+}
 
-New-ADOrganizationalUnit -Name "Laufwerke" -Path "OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Mitgliedserver" -Path "OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Gruppen" -Path "OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Benutzer" -Path "OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Gateway" -Path "OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Kontakte" -Path "OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
+foreach ($ou in $globalfolders)
+{
+    New-ADOrganizationalUnit -Name $ou -Path "OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
+}
 
 # Unterstruktur Global\Gruppen erstellen
 
-New-ADOrganizationalUnit -Name "Systemgruppen" -Path "OU=Gruppen,OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Dateiberechtigungsgruppen" -Path "OU=Gruppen,OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Druckerzuweisung" -Path "OU=Gruppen,OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Softwaregruppen" -Path "OU=Gruppen,OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Outlookberechtigungsgruppen" -Path "OU=Gruppen,OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Verteilerliste" -Path "OU=Gruppen,OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
+foreach ($ou in $globalgroups)
+{
+    New-ADOrganizationalUnit -Name $ou -Path "OU=Gruppen,OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
+}
 
 # Abfrage Standortname
 
