@@ -19,8 +19,8 @@ $global = @("Laufwerke","Mitgliedserver","Gruppen","Benutzer","Gateway","Kontakt
 # Stuktur Global\Groups deklarieren
 $globalgroups = @("Systemgruppen","Dateiberechtigungsgruppen","Druckerzuweisung","Softwaregruppen","Outlookberechtigungsgruppen","Verteilerliste")
 
-# Struktur Standorte deklarieren
-$sites = @("Global","Rebstein")
+# Struktur Global deklarieren
+$sites = @("Global")
 
 # Abfrage Domänenname
 
@@ -34,9 +34,34 @@ $TLD = Read-Host "Geben Sie die TLD ein."
 
 $firstOU = Read-Host "Geben Sie den Namen der Ersten OU ein."
 
+
 # Erstellung der OU's
 
 New-ADOrganizationalUnit -Name $firstOU -Path "DC=$domainname,DC=$TLD"
+
+# Abfrage Standorte
+
+$arrayInput = @()
+do {
+$input = (Read-Host "Please enter the Array Value `n linie 2")
+if ($input -ne '') {$arrayInput += $input}
+}
+#Loop will stop when user enter 'END' as input
+until ($input -eq 'end')
+
+$newarrayInput = @()
+    foreach ($input in $arrayInput)
+    {
+        if ($input -ne "end")
+        {
+            $newarrayInput = $newarrayInput += $input
+        }
+    }
+foreach ($location in $newarrayInput)
+{
+    New-ADOrganizationalUnit -Name $location -Path "OU=$firstOU,DC=$domainname,DC=$TLD"
+} 
+#$newarrayInput
 
 # Struktur Global und Standort anlegen
 
