@@ -9,7 +9,7 @@ Modifications:
 ##########################################################################
 
 #Enter a path to your import CSV file
-$ADUsers = Import-csv C:\scripts\newusers.csv
+$ADUsers = Import-csv C:\scripts\create_users.csv
 
 foreach ($User in $ADUsers)
 {
@@ -18,8 +18,8 @@ foreach ($User in $ADUsers)
        $Password    = $User.password
        $Firstname   = $User.firstname
        $Lastname    = $User.lastname
-    $Department = $User.department
-       $OU           = $User.ou
+       $Department  = $User.department
+       $OU          = $User.ou
 
        #Check if the user account already exists in AD
        if (Get-ADUser -F {SamAccountName -eq $Username})
@@ -39,7 +39,7 @@ foreach ($User in $ADUsers)
             -GivenName $Firstname `
             -Surname $Lastname `
             -Enabled $True `
-            -ChangePasswordAtLogon $True `
+            -ChangePasswordAtLogon $false `
             -DisplayName "$Lastname, $Firstname" `
             -Department $Department `
             -Path $OU `
