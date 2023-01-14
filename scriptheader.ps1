@@ -1,10 +1,10 @@
 <#########################################################################
-Skriptname:     Name.ps1
-Funktion:       
-Erstellt am:    7.2.2020
+Scriptname:     Name.ps1
+Function:       
+Created at:     14.1.2023
 Author:         N.Viragh
 Version:        1.0
-Aenderungen:
+Modifications:
 #>
 ##########################################################################
 

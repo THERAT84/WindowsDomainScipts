@@ -10,8 +10,8 @@ Aenderungen:
 #Einlesen txt Datei
 #Ordner in TXT müssen mit \ getrennt werden
 
-$folders = Get-Content "C:\bla\bla\tmp\create_folders.txt"
+$folders = Get-Content "C:\scripts\files\create_folders.txt"
 foreach ($folder in $folders) {
     
-    New-Item -ItemType Directory -Path "D:\DFS\Kundenname\$folder" 
+    New-Item -ItemType Directory -Path "D:\DFS-Datenpool\Kundenname\$folder" 
 }
