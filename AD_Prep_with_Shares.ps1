@@ -13,18 +13,21 @@ Aenderungen:
 #>
 ##########################################################################
 
+# Struktur Global deklarieren
+$sites = @("Global")
+
 # OU Struktur Global deklarieren
 $global = @("Laufwerke","Mitgliedserver","Gruppen","Benutzer","Gateway","Kontakte")
 
 # Stuktur Global\Groups deklarieren
 $globalgroups = @("Systemgruppen","Dateiberechtigungsgruppen","Druckerzuweisung","Softwaregruppen","Outlookberechtigungsgruppen","Verteilerliste")
 
-# Struktur Global deklarieren
-$sites = @("Global")
+# Struktur Standorte deklarieren
+$locationOU = @("Benutzer","Notebook","Computer")
 
-# Abfrage Domänenname
+# Abfrage Domaenenname
 
-$domainname = Read-Host "Geben Sie den Domänennamen ein.(ohne TLD)"
+$domainname = Read-Host "Geben Sie den Domaenennamen ein.(ohne TLD)"
 
 # Abfrage TDL
 
@@ -43,7 +46,7 @@ New-ADOrganizationalUnit -Name $firstOU -Path "DC=$domainname,DC=$TLD"
 
 $arrayInput = @()
 do {
-$input = (Read-Host "Please enter the Array Value `n linie 2")
+$input = (Read-Host "Bitte geben Sie einen oder mehrere Standorte ein `num die eingabe zu beenden geben sie 'end' ein: ")
 if ($input -ne '') {$arrayInput += $input}
 }
 #Loop will stop when user enter 'END' as input
@@ -70,38 +73,33 @@ foreach ($ou in $sites)
     New-ADOrganizationalUnit -Name $ou -Path "OU=$firstOU,DC=$domainname,DC=$TLD"
 }
 
-foreach ($ou in $globalfolders)
+foreach ($ou in $global)
 {
     New-ADOrganizationalUnit -Name $ou -Path "OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
 }
-
 # Unterstruktur Global\Gruppen erstellen
 
 foreach ($ou in $globalgroups)
 {
     New-ADOrganizationalUnit -Name $ou -Path "OU=Gruppen,OU=Global,OU=$firstOU,DC=$domainname,DC=$TLD"
 }
-
-# Abfrage Standortname
-
-$standort = Read-Host "Geben Sie den Standortnamen ein."
-
-# Struktur Standort anlegen
-
-New-ADOrganizationalUnit -Name $standort -Path "OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Benutzer" -Path "OU=$standort,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Notebook" -Path "OU=$standort,OU=$firstOU,DC=$domainname,DC=$TLD"
-New-ADOrganizationalUnit -Name "Computer" -Path "OU=$standort,OU=$firstOU,DC=$domainname,DC=$TLD"
-
+foreach ($location in $newarrayInput)
+{
+    
+    foreach ($folder in $locationOU)
+    {
+        New-ADOrganizationalUnit -Name $folder -Path "OU=$location,OU=$firstOU,DC=$domainname,DC=$TLD"
+    }
+}
 ##################################################################################################
 
-#Ordnerstruktur für Freigaben anlegen
+#Ordnerstruktur fuer Freigaben anlegen
 
 #Abfrage Datenpfad
 
 $Laufwerkspfad = Read-Host " Geben Sie den Laufwerksbuchstaben an auf dem die Struktur erstellt werden soll! z.B: D:\ "
 
-# Abfrage Über-Ordner zb. DFS-Datenpool
+# Abfrage Ueber-Ordner zb. DFS-Datenpool
 
 $Ordnername = Read-Host " Geben Sie nun den ersten Ordnernamen an"
 
