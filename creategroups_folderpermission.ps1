@@ -20,6 +20,6 @@ $sufix_RW = "_RW"
 
 foreach ($group in $groups) 
 { 
-    New-ADGroup -Name $prefix+$group+$sufix_R -SamAccountName $prefix+$group+$sufix_R -GroupCategory Security -GroupScope Global -DisplayName $prefix+$group+$sufix_R -Path $grouppath
-    New-ADGroup -Name $prefix+$group+$sufix_RW -SamAccountName $prefix+$group+$sufix_RW -GroupCategory Security -GroupScope Global -DisplayName $prefix+$group+$sufix_RW -Path $grouppath  
+    New-ADGroup -Name $prefix$group$sufix_R -SamAccountName $prefix$group$sufix_R -GroupCategory Security -GroupScope Global -DisplayName $prefix$group$sufix_R -Path $grouppath
+    New-ADGroup -Name $prefix$group$sufix_RW -SamAccountName $prefix$group$sufix_RW -GroupCategory Security -GroupScope Global -DisplayName $prefix$group$sufix_RW -Path $grouppath  
 }
