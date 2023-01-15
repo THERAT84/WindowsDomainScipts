@@ -1,2 +1,2 @@
 firstname,lastname,username,department,password,ou
-max,muster,max.muster,IT,Welcome_123!,"OU=Benutzer,OU=Rebstein,OU=ElektroKleiner,DC=elektrokleiner,DC=local"
+max,muster,max.muster,IT,Welcome_123!,"OU=user,OU=location,OU=Customer,DC=contoso,DC=local"

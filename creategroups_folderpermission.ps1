@@ -11,7 +11,7 @@ Modifications:
 #Variablen deklarieren
 # Mögliche Gruppenpfade -> Letzte OU
 # Systemgruppen","Dateiberechtigungsgruppen","Druckerzuweisung","Softwaregruppen","Outlookberechtigungsgruppen","Verteilerliste
-$grouppath = "OU=Dateiberechtigungsgruppen,OU=Gruppen,OU=Global,OU=Elektro Kleiner AG,DC=elektrokleiner,DC=local"
+$grouppath = "OU=Dateiberechtigungsgruppen,OU=Gruppen,OU=Global,OU=Customer,DC=contoso,DC=local"
 
 $groups = Get-Content "C:\scripts\files\create_groups.txt"
 $prefix = "GG_"

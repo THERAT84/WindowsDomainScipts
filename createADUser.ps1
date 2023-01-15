@@ -7,9 +7,13 @@ Version:        1.0
 Modifications:
 #>
 ##########################################################################
-
+# Declare Variables
+$profilepath = Read-host "Enter Profile path like \\server\share: "
+$homeletter = Read-host "Enter Driveletter for Homedrive like H:"
+$userHome = Read-host "Enter UserHome path like \\server\share: "
+$domain = Read-host "Enter Domainname contoso.local: "
 #Enter a path to your import CSV file
-$ADUsers = Import-csv C:\scripts\create_users.csv
+$ADUsers = Import-csv C:\scripts\files\create_users.csv
 
 foreach ($User in $ADUsers)
 {
@@ -34,15 +38,18 @@ foreach ($User in $ADUsers)
         #Account will be created in the OU listed in the $OU variable in the CSV file; don’t forget to change the domain name in the"-UserPrincipalName" variable
               New-ADUser `
             -SamAccountName $Username `
-            -UserPrincipalName "$Username@yourdomain.com" `
+            -UserPrincipalName "$Username@$domain" `
             -Name "$Firstname $Lastname" `
             -GivenName $Firstname `
             -Surname $Lastname `
             -Enabled $True `
             -ChangePasswordAtLogon $false `
-            -DisplayName "$Lastname, $Firstname" `
+            -DisplayName "$Firstname $Lastname" `
             -Department $Department `
             -Path $OU `
+            -HomeDrive $homeletter `
+            -HomeDirectory "$userhome\$username" `
+            -ProfilePath "$profilepath\$username" `
             -AccountPassword (convertto-securestring $Password -AsPlainText -Force)
 
        }
