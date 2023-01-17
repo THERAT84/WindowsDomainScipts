@@ -2,7 +2,7 @@
 Skriptname:     createfolders.ps1
 Funktion:       Erstellung Ordnerstruktur mit Textdatei
 Erstellt am:    13.1.2023
-Author:         N.Viragh
+Author:         THERAT84
 Version:        1.0
 Aenderungen:
 #>

@@ -3,7 +3,7 @@
 Skriptname:     AD_Prep.ps1
 Funktion:       Anlegen der Basisstruktur in der AD
 Erstellt am:    25.11.2014
-Author:         N.Viragh
+Author:         THERAT84
 Version:        1.0
 
 Aenderungen:

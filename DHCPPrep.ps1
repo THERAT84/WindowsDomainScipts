@@ -2,7 +2,7 @@
 Skriptname:     DHCPPrep.ps1
 Funktion:       Installation der DHCP Rolle und Konfiguration
 Erstellt am:    18.03.2020
-Author:         N.Viragh
+Author:         THERAT84
 Version:        1.0
 Aenderungen:
 #>

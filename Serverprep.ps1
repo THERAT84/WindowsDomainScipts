@@ -3,7 +3,7 @@ Skriptname:     Serverprep.ps1
 Funktion:       Script zur Basiskonfiguration eines Servers
                 Änderung Hostname und Netzwerkeinstellungen
 Erstellt am:    7.2.2020
-Author:         N.Viragh
+Author:         THERAT84
 Version:        1.0
 Aenderungen:
 #>

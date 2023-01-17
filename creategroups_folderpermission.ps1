@@ -2,7 +2,7 @@
 Scriptname:     creategroups.ps1
 Function:       create AD groups for folderpermissions
 Created at:     14.1.2023
-Author:         N.Viragh
+Author:         THERAT84
 Version:        1.0
 Modifications:
 #>
