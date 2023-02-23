@@ -11,7 +11,7 @@ Modifications:
 
 $username = Read-Host "Enter loginname of the user to delete"
 
-foreach ($user in $username)
+foreach($user in $username)
 {
     $profilepath = Get-ADUser -Identity $user -Properties ProfilePath | Format-Table -Property ProfilePath -HideTableHeaders | Out-String
     $homepath =  Get-ADUser -Identity $user -Properties HomeDirectory | Format-Table -Property HomeDirectory -HideTableHeaders | Out-String
@@ -25,7 +25,7 @@ foreach ($user in $username)
     {
         $realHomePath = Get-SmbShare -name "home*" | Format-Table -Property Path -HideTableHeaders
     }
-        ForEach ($pdir in $realProfilPath)
+        foreach($pdir in $realProfilPath)
         {
             $checkprofilepath = Test-Path $pdir
                 if ($checkprofilepath -eq $true)
@@ -39,7 +39,7 @@ foreach ($user in $username)
                     Write-Host "User: $name Profile Folder doesnt exist" -BackgroundColor Red
                 }
         }
-        ForEach ($hdir in $realHomePath)
+        foreach($hdir in $realHomePath)
         {
             $checkhomepath = Test-Path $hdir
                 if ($checkhomepath -eq $true)
