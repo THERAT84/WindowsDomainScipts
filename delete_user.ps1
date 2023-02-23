@@ -32,11 +32,11 @@ foreach ($user in $username)
                 {
                     Set-Location -Path $pdir
                     Remove-Item -Path $pdir -Force -Recurse 
-                    Write-Host "$name Profilefolder at $pdir deleted" -BackgroundColor Green
+                    Write-Host "User: $name Profilefolder at $pdir deleted" -BackgroundColor Green
                 }
                 else 
                 {
-                    Write-Host "$name Profile Folder doesnt exist" -BackgroundColor Red
+                    Write-Host "User: $name Profile Folder doesnt exist" -BackgroundColor Red
                 }
         }
         ForEach-Object($hdir in $realHomePath)
@@ -46,13 +46,13 @@ foreach ($user in $username)
                 {
                     Set-Location -Path $hdir
                     Remove-Item -Path $hdir -Force -Recurse
-                    Write-Host "$name Homefolder at $hdir deleted" -BackgroundColor Green
+                    Write-Host "User: $name Homefolder at $hdir deleted" -BackgroundColor Green
                 }
                 else
                 {
-                    Write-Host "$name Home Folder doesnt exist" -BackgroundColor Red
+                    Write-Host "User: $name Home Folder doesnt exist" -BackgroundColor Red
                 }
         }
     Remove-ADUser -Identity $user 
-    Write-Host "$name User deleted" -BackgroundColor Green
+    Write-Host "User: $name deleted" -BackgroundColor Green
 }
