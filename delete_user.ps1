@@ -25,7 +25,7 @@ foreach ($user in $username)
     {
         $realHomePath = Get-SmbShare -name "home*" | Format-Table -Property Path -HideTableHeaders
     }
-        ForEach-Object($pdir in $realProfilPath)
+        ForEach ($pdir in $realProfilPath)
         {
             $checkprofilepath = Test-Path $pdir
                 if ($checkprofilepath -eq $true)
@@ -39,7 +39,7 @@ foreach ($user in $username)
                     Write-Host "User: $name Profile Folder doesnt exist" -BackgroundColor Red
                 }
         }
-        ForEach-Object($hdir in $realHomePath)
+        ForEach ($hdir in $realHomePath)
         {
             $checkhomepath = Test-Path $hdir
                 if ($checkhomepath -eq $true)
