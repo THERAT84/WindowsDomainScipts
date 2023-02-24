@@ -33,7 +33,7 @@ foreach($user in $username)
                 if ($DriveProfilePath -contains $user)
                 {
                     Set-Location -Path $DriveProfilePath
-                    Remove-Item -Path $user -Force -Recurse 
+                    Remove-Item -Path $realUserProfilePath -Force -Recurse 
                     Write-Host "User: $name Profilefolder at $pdir deleted" -BackgroundColor Green
                 }
                 else 
