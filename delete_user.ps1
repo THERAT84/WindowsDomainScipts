@@ -13,25 +13,27 @@ $username = Read-Host "Enter loginname of the user to delete"
 
 foreach($user in $username)
 {
-    $profilepath = Get-ADUser -Identity $user -Properties ProfilePath | Format-Table -Property ProfilePath -HideTableHeaders | Out-String
-    $homepath =  Get-ADUser -Identity $user -Properties HomeDirectory | Format-Table -Property HomeDirectory -HideTableHeaders | Out-String
+    $profilepath = Get-ADUser -Identity $user -Properties ProfilePath | Format-Table -Property ProfilePath -HideTableHeaders | Out-String 
+    $homepath =  Get-ADUser -Identity $user -Properties HomeDirectory | Format-Table -Property HomeDirectory -HideTableHeaders | Out-String 
     #$usfpath =
     # Convert SMB Share Name to real path of the folders
     if ($profilepath -like '*profil*')
     {
-       $realProfilPath = Get-SmbShare -Name "profil*" | Format-Table -Property Path -HideTableHeaders
+       $DriveProfilePath = Get-SmbShare -Name "profil*" | Format-Table -Property Path -HideTableHeaders | Out-String -Stream
+       $realUserProfilePath = Join-Path -Path $realProfilePath[1] -ChildPath \$user
     }
     if ($homepath -like '*home*')
     {
-        $realHomePath = Get-SmbShare -name "home*" | Format-Table -Property Path -HideTableHeaders
+        $DriveHomePath = Get-SmbShare -name "home*" | Format-Table -Property Path -HideTableHeaders | Out-String -Stream
+        $realUserHomePath = Join-Path -Path $realHomePath[1] -ChildPath \$user
     }
-        foreach($pdir in $realProfilPath)
+        foreach($pdir in $realUserProfilePath)
         {
-            $checkprofilepath = Test-Path $pdir
-                if ($checkprofilepath -eq $true)
+            #$checkprofilepath = Test-Path $pdir
+                if ($DriveProfilePath -contains $user)
                 {
-                    Set-Location -Path $pdir
-                    Remove-Item -Path $pdir -Force -Recurse 
+                    Set-Location -Path $DriveProfilePath
+                    Remove-Item -Path $user -Force -Recurse 
                     Write-Host "User: $name Profilefolder at $pdir deleted" -BackgroundColor Green
                 }
                 else 
@@ -41,7 +43,7 @@ foreach($user in $username)
         }
         foreach($hdir in $realHomePath)
         {
-            $checkhomepath = Test-Path $hdir
+            #$checkhomepath = Test-Path $hdir
                 if ($checkhomepath -eq $true)
                 {
                     Set-Location -Path $hdir
