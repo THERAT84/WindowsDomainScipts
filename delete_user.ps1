@@ -30,30 +30,30 @@ foreach($user in $username)
         foreach($pdir in $realUserProfilePath)
         {
             #$checkprofilepath = Test-Path $pdir
-                if ($DriveProfilePath -contains $user)
-                {
-                    Set-Location -Path $DriveProfilePath
-                    Remove-Item -Path $realUserProfilePath -Force -Recurse 
-                    Write-Host "User: $name Profilefolder at $pdir deleted" -BackgroundColor Green
-                }
-                else 
-                {
-                    Write-Host "User: $name Profile Folder doesnt exist" -BackgroundColor Red
-                }
+            if ($DriveProfilePath -contains $user)
+            {
+                #Set-Location -Path $DriveProfilePath
+                Remove-Item -Path $realUserProfilePath -Force -Recurse 
+                Write-Host "User: $name Profilefolder at $DriveProfilePath deleted" -BackgroundColor Green
+            }
+            else 
+            {
+                Write-Host "User: $name Profile Folder doesnt exist" -BackgroundColor Red
+            }
         }
-        foreach($hdir in $realHomePath)
+        foreach($hdir in $realUserHomePath)
         {
             #$checkhomepath = Test-Path $hdir
-                if ($checkhomepath -eq $true)
-                {
-                    Set-Location -Path $hdir
-                    Remove-Item -Path $hdir -Force -Recurse
-                    Write-Host "User: $name Homefolder at $hdir deleted" -BackgroundColor Green
-                }
-                else
-                {
-                    Write-Host "User: $name Home Folder doesnt exist" -BackgroundColor Red
-                }
+            if ($DriveHomePath -contains $user)
+            {
+                #Set-Location -Path $hdir
+                Remove-Item -Path $realUserHomePath -Force -Recurse
+                Write-Host "User: $name Homefolder at $DriveHomePAth deleted" -BackgroundColor Green
+            }
+            else
+            {
+                Write-Host "User: $name Home Folder doesnt exist" -BackgroundColor Red
+            }
         }
     Remove-ADUser -Identity $user 
     Write-Host "User: $name deleted" -BackgroundColor Green
