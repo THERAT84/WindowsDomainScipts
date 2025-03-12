@@ -12,7 +12,7 @@ Aenderungen:
 $path = Read-host "Enter Folderpath like D:\DFS-Datenpool\Kundenname : "
 #Einlesen txt Datei
 #Ordner in TXT müssen mit \ getrennt werden
-$folders = Get-Content "C:\scripts\files\create_folders.txt"
+$folders = Get-Content "C:\scripts\files\create_folders.txt" -Encoding UTF8
 foreach ($folder in $folders) {
     
     New-Item -ItemType Directory -Path "$path\$folder" 
