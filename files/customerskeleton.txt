@@ -1,0 +1,10 @@
+Dokumentationen\Archiv
+Lizenzen
+ConfigBackups
+Firmware
+VPN_Configs
+Garantiefälle
+Lieferscheine
+Projekte
+Diverses
+Software
