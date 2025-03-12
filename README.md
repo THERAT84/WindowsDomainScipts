@@ -1,4 +1,4 @@
-# WindowsDomainScipts
+# WindowsDomainScripts
 How to
 Create folder "scripts" at c:\ and extract all files in that folder
 helperfiles are located at c:\scripts\files
