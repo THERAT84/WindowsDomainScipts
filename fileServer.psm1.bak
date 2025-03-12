@@ -1,0 +1,96 @@
+<#########################################################################
+
+file name:      fileServer.psm1
+description:    module for file server installation
+creation date:  17.03.2021
+author:         F. Dort
+version:        1.0
+
+changes:
+
+##########################################################################>
+
+function New-FileStructure {
+    <#
+        .SYNOPSIS
+        Creates a new file structure.
+    
+        .DESCRIPTION
+        This function creates a folder structure with variable depth and folders.
+    
+        .PARAMETER basePath
+        BASEPATH contains the base folder
+
+        .PARAMETER parentFolders
+        PARENTFOLDERS contains the parent folder
+
+        .PARAMETER childFolders
+        CHILDFOLDERS contains the child folder(s) - OPTIONAL
+    
+        .EXAMPLE
+        New-FileStructure -basePath "Daten" -parentFolders "company Z" -childFolders "New York, Zurich, Berlin"
+    
+        .NOTES
+        folderParent must be provided. childFolders is optional and must not be provided.
+
+    #>
+    
+        param(
+            [parameter(mandatory=$true)]
+            [ValidateNotNullorEmpty()]
+            [string]$basePath,
+            [parameter(mandatory=$true)]
+            [ValidateNotNullorEmpty()]
+            [array]$parentFolders,
+            [array]$childFolders
+        )
+        
+        Process {
+
+            # check for basePath to exist, if not create it
+            if (!(Test-Path $basePath)) {
+                New-Item -Path $basePath -ItemType Directory
+                
+                # debug
+                # write-host "New-Item -Path $basePath -ItemType Directory"
+            }
+
+            # create parent and child (if provided) folders
+            for($i = 0; $i -lt $parentFolders.Length; $i++) {
+
+                # join basePath with current parent folder
+                $parentFolderFullPath = Join-Path -Path $basePath -ChildPath $parentFolders[$i]
+
+                # create folder if not exists
+                if (!(Test-Path $parentFolderFullPath)) {
+                    New-Item -ItemType Directory -Path $parentFolderFullPath
+                }
+                else {
+                    Write-Host -ForegroundColor Red "Folder $parentFolderFullPath already exists, skipping ..."
+                }
+
+                # debug
+                # Write-Host "New-Item -ItemType Directory -Path $parentFolderFullPath"
+
+                # if child folders are provided, create them
+                if ($childFolders.Length -gt 0) {
+                    for($j = 0; $j -lt $childFolders[$i].Length; $j++) {
+                        
+                        # join parent path with current child folder
+                        $childFolderFullPath = Join-Path -Path $parentFolderFullPath -ChildPath $childFolders[$i][$j]
+
+                        # create folder if not exists
+                        if (!(Test-Path $childFolderFullPath)){
+                            New-Item -ItemType Directory -Path $childFolderFullPath
+                        }
+                        else {
+                            Write-Host -ForegroundColor Red "Folder $childFolderFullPath already exists, skipping ..."
+                        }
+
+                        # debug
+                        # Write-Host "New-Item -ItemType Directory -Path $childFolderFullPath"
+                    }
+                }
+            }   
+        }
+    }

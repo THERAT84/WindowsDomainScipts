@@ -1,0 +1,64 @@
+<#########################################################################
+
+file name:      create-FolderStructure.ps1
+description:    creates folder structure
+creation date:  17.03.2021
+author:         F. Dort
+version:        1.0
+
+changes:
+
+notes:          file structure must be as following
+                .\
+                folderStructure.ps1
+                |
+                |-> modules
+                    |
+                    |-> fileServer.psm1
+
+##########################################################################>
+
+# declare variables
+
+# module
+$modulePath = "modules"
+$module = "fileServer.psm1"
+$moduleImport = ".\" + $modulePath + "\" + $module
+
+###########################################################################
+
+# import module
+Import-Module $moduleImport -Force
+
+###########################################################################
+
+# ==> enter your folder structure here <==
+$basePath = "D:\DFS-Datenpool\Daten\Company\70_Infrastruktur"
+
+## usage of array @("ParentFolder1", "ParentFolder2", "Parentfolder3", "ParentFolder4") ##
+
+# example with 4 parent folders
+# $parentFolders = @("One", "Two", "Three", "Four")
+
+# example with only 1 parent folder
+# $parentFolders = @("One")
+
+$parentFolders = @("71_IT", "72_Maschinen_Werkzeuge", "73_Fahrzeuge", "74_Einrichtungen", "75_Immobilien", "78_Interessantes", "79_Projekte")
+
+## usage of arrays @("Child1OfParent1","Child2OfParent1"), @("Child1OfParent2","Child2OfParent2"), @("Child1OfParent3","Child2OfParent3") ##
+
+# example with 3 childfolders for 3 parentfolders
+# $childFolders = @("Four", "Five", "Six"), @("Seven","Eight","Nine"), @("Ten", "Eleven", "Twelve")
+$childFolders = @("01_Dokumentation", "02_Online_Systeme", "03_Anwendungssoftware", "04_Systemsoftware", "05_Hardware"), @("V&D"), @("V&D"), @("V&D"), @("V&D"), @("V&D"), @("V&D")
+
+###########################################################################
+
+# main
+
+# create parent with child folders
+New-FileStructure -basePath $basePath -parentFolders $parentFolders -childFolders $childFolders
+
+# create only parent folder
+# New-FileStructure -basePath $basePath -parentFolders $parentFolders
+
+###########################################################################
